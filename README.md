@@ -1,6 +1,6 @@
 # inkoko_ui
 ```
-chicken breeding in down town
+chicken breeding in downtown
 
 ```
 
