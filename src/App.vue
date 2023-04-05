@@ -1,32 +1,71 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+  <div id="body">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div class="main" v-if="logged_in">
+      <NavBar/>
+      <router-view/>
+      <div class="loggout" @click="loggout">
+        <fa icon="power-off" />
+      </div>
+    </div>
+    <div v-else>
+      <Login/>
+    </div>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+<script>
+import axios from "axios"
+import Login from "./pages/Login.vue"
+import NavBar from "./components/navbar.vue";
+export default{
+  components:{NavBar, Login},
+  computed:{
+    logged_in() {
+      return this.$store.state.user != null;
+    }
+  },
+  mounted(){
+    var user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      this.$store.state.user = user;
+    } else {
+      console.warn("il y'a pas de session");
+    }
+    if(this.$store.state.produits.length==0){
+      this.fetchProducts()
+    }
+  },
+  watch:{
+    "$store.state.user":{
+      deep: true,
+      handler(new_user){
+        localStorage.setItem('user', JSON.stringify(new_user));
+      }
+    }
+  },
+  methods:{
+    loggout(){
+      if (confirm("êtes vous sur de vouloir deconnecter?")) {
+        this.$store.state.user = null;
+      }
+    },
+    fetchProducts(){
+      let headers = {
+        headers: {
+          "Authorization": "Bearer " + this.$store.state.user.access
+        }
+      }
+      axios.get(this.$store.state.url+'/produit/', headers)
+      .then((response) => {
+        this.$store.state.produits = response.data;
+        this.items = response.data;
+      }).catch((error) => {
+        console.error(error);
+      });
+    }
+  }
+};
+</script>
+<style src="./style.css">
 </style>
