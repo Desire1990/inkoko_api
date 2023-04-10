@@ -67,11 +67,11 @@
 				</router-link>
 				<router-link :to="{name:'oeuf_vendu'}">
 					<fa icon="hand-holding-usd"/> Oeufs vendus
-				</router-link><!-- 
-				<router-link :to="{name:'paiements'}">
+				</router-link>
+				<router-link :to="{name:'poulet_vendu'}">
 					<fa icon="hand-holding-usd"/>
-					<span>Paiements</span>
-				</router-link> -->
+					<span>Poulets vendus</span>
+				</router-link>
 			</div>
 		</router-link>
 		<router-link to="/stats" event=""

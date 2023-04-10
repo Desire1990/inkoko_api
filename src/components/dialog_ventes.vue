@@ -1,13 +1,13 @@
 <template>
   <div :class="{popup:true, active:visible}" @click="close">
     <div class="popup-body" @click.prevent.stop>
-      <center><h2>Ration</h2></center>
+      <center><h2>Ration</h2></center><br>
       <div v-if="ventes.length==0">{{action}}</div>
       <div class="scrollable-tab" v-else>
         <table class="table commandes">
           <thead>
             <tr class="panier-item">
-              <th>id</th>
+              <th>#</th>
               <th>produit</th>
               <th>quantite</th>
               <th>prix Unitaire</th>
@@ -15,8 +15,8 @@
             </tr>
           </thead>
           <tbody id="commandes">
-              <tr v-for="vente in ventes">
-                <td style="color:#aaa;">{{vente.id}}</td>
+              <tr v-for="vente, count in ventes">
+                <td style="color:#aaa;">{{count+1}}</td>
                 <td>{{vente.produit}}</td>
                 <td>x {{vente.quantite}}{{vente.produit.unite}}</td>
                 <td>{{money(vente.prix_achat)}} Fbu</td>
