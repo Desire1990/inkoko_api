@@ -38,7 +38,7 @@ import axios from "axios";
 export default {
   props: {
     visible:{ type:Boolean, default:false},
-  },
+  }, 
   data(){
     return {
       logs:"", nom_salle:"", quantite:0, commentaire:"", prix_unitaire:0
