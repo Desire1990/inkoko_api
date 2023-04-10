@@ -3,7 +3,7 @@
 
 		<div ref='modal' class="popup-body" @click.stop  >
 			<center>
-				<h3>Creer Transaction</h3>
+				<h3>Creer Tranfer</h3>
 			</center>
 			<form method="post">
 				<div class="field">
@@ -25,21 +25,16 @@
 
 				<div class="field">
 					<label for="id_prix">Montant:</label>
-					<input type="number" name="prix" placeholder="le montant" id="id_prix"
-						v-model="transaction.montant">
+					<input type="number" name="prix" placeholder="le montant en euro" id="id_prix"
+						v-model="transaction.montant_euro">
+				</div>
+				<div class="field">
+					<label for="id_prix">Montant:</label>
+					<input type="number" name="prix" placeholder="frais en %" id="id_prix"
+						v-model="transaction.frais">
 				</div>
 				<div class="logs">{{logs}}</div>
 				<div class="buttons">
-<!-- 					<button @click.prevent="generateCSV">
-						<fa icon="download"/> Model
-					</button>
-					<button @click.prevent="onPickFile">
-						<fa icon="upload"/> Charger
-					</button>
-					<input type="file" style="display: none"
-						ref="fileInput" accept=".csv"
-						@change="loadCSV">
- -->
 					<button @click.prevent="createTransaction" ref="submit">
 						Créer
 					</button>
@@ -107,8 +102,12 @@ export default {
 				this.logs = "le telephone est obligatoire"
 				return;
 			}
-			if(!this.transaction.montant){
-				this.transaction.montant = 0;
+			if(!this.transaction.montant_euro){
+				this.transaction.montant_euro = 0;
+				this.logs = ""
+			}
+			if(!this.transaction.frais){
+				this.transaction.frais = 0;
 				this.logs = ""
 			}
 			axios.post(this.$store.state.url+`/transaction/`, this.transaction, this.headers)
