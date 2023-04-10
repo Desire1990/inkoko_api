@@ -18,13 +18,13 @@
         <table class="table paiements">
          <thead>
             <tr class="panier-item" style="text-transform: capitalize;">
-              <th>id</th>
+              <th>#</th>
               <th>Salle</th>
               <th>Type de poulle</th>
               <th>responsable</th>
               <th>Telephone</th>
               <th>quantite</th>
-              <th>oeufs pondus</th>
+              <!-- <th>oeufs pondus</th> -->
               <th>date</th>
               <th>
               	<button @click="add_mode=true">Ajouter</button>
@@ -39,21 +39,21 @@
               <td>{{ item.responsable.nom }} {{ item.responsable.prenom }}</td>
               <td>{{ item.responsable.telephone }} </td>
               <td>{{ item.quantite }} poulles</td>
-              <td>{{ item.quantite_oeuf }} oeufs</td>
+              <!-- <td>{{ item.total }} oeufs</td> -->
               <td>{{ datetime(item.date) }}</td>
               <td>
                 <div class="btns">
                   <button @click.prevent="startEdit(item)">Edit</button>
-                  <button @click.prevent="startAchat(item)">Oeuf</button>
+                  <button v-if='item.type_poulle=="poulet pondeuse"' @click.prevent="startAchat(item)" style="background-color:yellow;color: #000;" >Oeuf</button>
+                  <button v-if='item.type_poulle=="poulet en chair"' @click.prevent="startVente(item)" style="background-color:teal;" >Vendre</button>
                 </div>
               </td>
             </tr>
         </tbody>
 		<tfoot>
 			<tr class="panier-item">
-				<th colspan="5">total</th>
-				<th>{{(total())}} poulles</th>
-				<th>{{(totale())}} oeufs</th>
+				<th colspan="5">Total</th>
+				<th>{{(total())}} poulles |<br> {{(totale())}} oeufs</th>
 				<th colspan="2"></th>
 			</tr>
 		</tfoot>
@@ -61,6 +61,7 @@
 	</div>
   	<EditDialog :visible="edit_mode" :produit="active_item" @close="exitEdition"/>
   	<AchatDialog :visible="achat_mode" :salle="active_item" @close="exitEdition"/>
+  	<VenteDialog :visible="achat_mod" :salle="active_item" @close="exitEdition"/>
   	<ProduitDialog :visible="add_mode" @close="exitEdition"/>
   </div>
 </template>
@@ -71,15 +72,16 @@ import Item from "../components/achat_item.vue";
 import EditDialog from "../components/dialog_edit_salle.vue";
 import ProduitDialog from "../components/dialog_salle.vue";
 import AchatDialog from "../components/dialog_oeuf.vue";
+import VenteDialog from "../components/dialog_vente_poulet.vue";
 
 export default{
-	components:{SearchBar, Item, EditDialog, AchatDialog, ProduitDialog},
+	components:{SearchBar, Item, EditDialog, AchatDialog, ProduitDialog, VenteDialog},
 	data(){
 		return {
 			csvData : {},
 			items:this.$store.state.salles,
 			active_item:{},
-			edit_mode:false, achat_mode:false, add_mode:false
+			edit_mode:false, achat_mode:false, add_mode:false, achat_mod:false,
 		}
 	},
 	watch:{
@@ -126,6 +128,7 @@ export default{
 			this.active_item = {};
 			this.edit_mode = false;
 			this.achat_mode = false;
+			this.achat_mod = false;
 			this.add_mode = false;
 		},
 		startEdit(item){
@@ -135,6 +138,10 @@ export default{
 		startAchat(item){
 			this.active_item = item;
 			this.achat_mode = true;
+		},
+		startVente(item){
+			this.active_item = item;
+			this.achat_mod = true;
 		},
 		
 		performFilter(value){
@@ -261,8 +268,8 @@ export default{
     position: inherit;
   }
 }
-table,th, td {
-  border: 1.5px solid black;
-	padding: 10px;
+table,th, td,thead tr {
+  border: 1px solid black;
+	padding: 5px;
 }
 </style>

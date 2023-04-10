@@ -20,7 +20,9 @@
               <th>nom & Prenom</th>
               <th>telephone</th>
               <th>Adresse</th>
-              <th>montant</th>
+              <th>montant en Euro</th>
+              <th>montant en Fbu</th>
+              <th>taux</th>
               <!-- <th v-if="$store.state.user.groups.includes('admin')">Status</th> -->
               <th>date</th>
               <th>valider</th>
@@ -33,7 +35,9 @@
               <td>{{ item.nom }} {{ item.prenom }}</td>
               <td>{{ item.telephone }}</td>
               <td>{{ item.adresse }}</td>
-              <td>{{money(item.montant)}} Fbu</td>
+              <td>{{money(item.montant_euro)}} Euro</td>
+              <td>{{money(item.montant_fbu)}} Fbu</td>
+              <td>{{(item.frais)}} %</td>
               <!-- <td v-if="$store.state.user.groups.includes('admin')">{{ item.validated }}</td> -->
               <td>{{datetime(item.date)}}</td>
               <td v-if='item.validated==false'>
@@ -52,7 +56,8 @@
 		<tfoot>
 			<tr class="panier-item">
 				<th colspan="4">Total</th>
-				<th>{{money(total())}} Fbu</th>
+				<th>{{money(total())}} euros</th>
+				<th>{{money(totale())}} Fbu</th>
 				<th colspan="3"></th>
 
 			</tr>
@@ -175,7 +180,16 @@ export default{
 			let total = 0;
 			for(let item of this.items){
 				if(item.validated==true){
-					total += (item.montant);
+					total += (item.montant_euro);
+				}
+			}
+			return total;
+		},
+		totale(){
+			let total = 0;
+			for(let item of this.items){
+				if(item.validated==true){
+					total += (item.montant_fbu);
 				}
 			}
 			return total;
