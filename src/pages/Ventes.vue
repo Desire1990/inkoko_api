@@ -1,7 +1,7 @@
 <template>
   <div class="parent" @click="popover_opened=false">
     <div class="top">
-      <SearchBar @changed="filterByDate" @searched="searchItem" :show_date="userIs('admin')||userIs('gerant')"/>
+      <SearchBar @changed="filterByDate" @searched="searchItem" :show_date="userIs('admin')"/>
     </div>
     <div class="recycler">
     </div>
@@ -9,15 +9,15 @@
         <table class="table commandes">
           <thead>
             <tr class="panier-item">
-              <th>id</th>
+              <th>#</th>
               <th>Date</th>
               <th>Responsable</th>
               <th>options</th>
             </tr>
           </thead>
           <tbody id="commandes">
-            <tr v-for="commande in rations.results">
-              <td>{{commande.id}}</td>
+            <tr v-for="commande, count in rations.results">
+              <td>{{count+1}}</td>
               <td>{{datetime(commande.date)}}</td>
               <td>{{(commande.responsable)}}</td>              
               <td>
@@ -190,6 +190,6 @@ export default {
 }
 table,th, td {
   border: 1px solid black;
-  padding-left: 10px;
+  padding-left: 5px;
 }
 </style>

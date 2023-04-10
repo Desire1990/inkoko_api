@@ -19,6 +19,7 @@ export default new Vuex.Store({
     transactions:[],
     responsables:[],
     pertes:[],
+    pouletVendus:[],
     commandes:[],
     prix:[],
     rations:[],

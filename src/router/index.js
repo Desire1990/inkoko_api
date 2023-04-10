@@ -17,6 +17,7 @@ import StatsPertes from '../pages/StatsPertes.vue'
 import PertePoulet from '../pages/PertePoulet.vue'
 import PerteOeufs from '../pages/PerteOeufs.vue'
 import Users from '../pages/Users.vue'
+import PouletVendu from '../pages/PouletVendu.vue'
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,7 @@ const routes = [
   { path: '/hist/oeuf_vendu', name: 'oeuf_vendu', component: StatsOeuf },
   { path: '/hist/achats', name: 'achats', component: Achats },
   { path: '/hist/rations', name: 'rations', component: Ventes },
+  { path: '/hist/poulet_vendu', name: 'poulet_vendu', component: PouletVendu },
   { path: '/stats/product', name: 'statsproduct', component: StatsProduct },
   { path: '/stats/clients', name: 'statsclients', component: StatsClients },
   { path: '/stats/pertes', name: 'statspertes', component: StatsPertes },
