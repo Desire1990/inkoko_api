@@ -1,7 +1,7 @@
 <template>
   <div class="parent">
     <div class="top">
-      <SearchBar :show_date="false" @searched="performFilter"/>
+      <SearchBar :show_date="true" @searched="performFilter" @changed="filterByDate"/>
     </div>
 		<div>
 			<button @click="add_mod=true" style="float: right; margin-right: 40px;margin:20px;">
@@ -16,7 +16,7 @@
         <table class="table paiements">
          <thead style="text-transform:capitalize;">
             <tr class="panier-item">
-              <th>id</th>
+              <th>#</th>
               <th>Salle</th>
               <!-- <th>prix</th> -->
               <th>quantite</th>
@@ -25,7 +25,7 @@
           </thead>
           <tbody id="paiements">
             <tr v-for="(item, count) in items">
-              <th>{{ item.id}}</th>
+              <th>{{ count+1}}</th>
               <td>{{ item.salle.nom }}</td>
               <!-- <td>{{ item.prix.prix }} Fbu</td> -->
               <td>{{ item.quantite }} oeufs</td>
@@ -67,6 +67,25 @@ export default{
 		}
 	},
 	methods:{
+		filterByDate(e){
+      let since = e.du;
+      let to = e.au;
+
+      let headers = {
+        headers: {
+          "Authorization": "Bearer " + this.$store.state.user.access
+        }
+      }
+      axios.get(this.$store.state.url+`/oeuf/?du=${since}&au=${to}`, headers)
+      .then((response) => {
+        this.query_date=true;
+        this.items = response.data.results;
+      }).catch((error) => {
+        this.query_date = false;
+        console.log(error);
+      });
+      
+    },
 		fetchData(){
       let headers = {
           headers: {
