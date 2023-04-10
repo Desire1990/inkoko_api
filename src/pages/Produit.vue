@@ -18,7 +18,7 @@
         <table class="table paiements">
          <thead>
             <tr class="panier-item">
-              <th>id</th>
+              <th>#</th>
               <th>nom</th>
               <th>quantite</th>
               <th>date</th>
@@ -238,7 +238,7 @@ export default{
 .hidden{
   visibility: hidden;
 }
-@media screen and (max-width: 650px){
+@media screen and (max-width: 320px){
   .scrollable-tab{
     position: inherit;
     height: auto;
