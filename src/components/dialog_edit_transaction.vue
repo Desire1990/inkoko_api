@@ -23,7 +23,7 @@
 				</div>
 				<div class="field">
 					<label for="id_prix">Nouveau montant:</label>
-					<input type="number" name="prix" placeholder="prix" required="" id="id_quantite" v-model="new_produit.montant">
+					<input type="number" name="prix" placeholder="montant en euro" required="" id="id_quantite" v-model="new_produit.montant_euro">
 				</div>
 				<div class="buttons">
 					<div class="logs">{{logs}}</div>
