@@ -19,7 +19,7 @@
           </thead>
           <tbody id="pertes">
               <tr v-for="perte, count in pertes">
-                <td>{{ count+1 }}</td>
+                <th>{{ count+1 }}</th>
                 <td>{{ perte.salle }}</td>
                 <td>{{ datetime(since) }}</td>
                 <td>{{ datetime(to) }}</td>

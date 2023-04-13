@@ -18,7 +18,7 @@
           </thead>
           <tbody id="stats">
               <tr v-for="stat in stats">
-                <td>{{ stat.id }}</td>
+                <th>{{ stat.id }}</th>
                 <td>{{ stat.nom }}</td>
                 <td>{{ stat.tel }}</td><!-- 
                 <td>{{ stat.commande }}</td>

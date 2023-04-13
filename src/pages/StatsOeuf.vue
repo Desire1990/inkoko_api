@@ -9,7 +9,7 @@
         <table class="table commandes">
           <thead>
             <tr class="panier-item">
-              <th>id</th>
+              <th>#</th>
               <th>Date</th>
               <th>Client</th>
               <th>Prix</th>
@@ -18,8 +18,8 @@
             </tr>
           </thead>
           <tbody id="commandes">
-            <tr v-for="commande in items">
-              <td>{{commande.id}}</td>
+            <tr v-for="commande, count in items">
+              <th>{{count+1}}</th>
               <td>{{datetime(commande.date)}}</td>
               <td>{{(commande.client)}}</td>              
               <td>{{(commande.prix)}} Fbu</td>              
