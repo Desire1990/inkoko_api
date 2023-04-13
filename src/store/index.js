@@ -24,7 +24,7 @@ export default new Vuex.Store({
     prix:[],
     rations:[],
     users:[],
-    dettes:[],
+    taux:[],
     achats_fetched:false,
     dettes_fetched:false,
     commandes_fetched:false,
