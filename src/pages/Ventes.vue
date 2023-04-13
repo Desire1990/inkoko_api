@@ -17,7 +17,7 @@
           </thead>
           <tbody id="commandes">
             <tr v-for="commande, count in rations.results">
-              <td>{{count+1}}</td>
+              <th>{{count+1}}</th>
               <td>{{datetime(commande.date)}}</td>
               <td>{{(commande.responsable)}}</td>              
               <td>
@@ -68,35 +68,36 @@ export default {
     userIs(group){
       return this.$store.state.user.groups.includes(group);
     },
-    searchItem(value){
+     searchItem(value){
       let returnedValues = {};
+      this.rations = this.$store.state.rations;
       if (value=='') return 
-      value = value.toLowerCase();
       value = value.toLowerCase().split(",")
-      returnedValues = this.commandes.filter(item => {
+      returnedValues = this.$store.state.rations.filter(item => {
         if(!value[1]){
           return(
-            item.id == value[0] || 
+            item.id == value || 
             item.user.toLowerCase().includes(value[0]) || 
-            this.datetime(item.date).includes(value[0])
+            this.datetime(item.date).includes(value[0])||
+            item.produit.toLowerCase().includes(value[0])
           )
         } else {
           return (
             (
-              item.id == value[0] || 
-              item.user.toLowerCase().includes(value[0]) || 
-              this.datetime(item.date).includes(value[0])
-            ) && 
-            (
-              item.id == value[1] || 
-              item.user.toLowerCase().includes(value[1]) || 
-              this.datetime(item.date).includes(value[1])
+              item.id == value || 
+              item.user.toLowerCase().includes(value[0]) ||
+              this.datetime(item.date).includes(value[0])||
+              item.produit.toLowerCase().includes(value[0])
+            )&&(
+              item.id == value || 
+              item.user.toLowerCase().includes(value[0]) ||
+              this.datetime(item.date).includes(value[0])||
+              item.produit.toLowerCase().includes(value[0])
             )
           )
         }
       })
-      this.$store.state.commandes_fetched = false
-      this.commandes = returnedValues;
+      this.rations = returnedValues;
     },
     showDetails(commande){
       this.active_commande = commande;
