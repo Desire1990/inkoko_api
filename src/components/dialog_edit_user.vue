@@ -1,9 +1,9 @@
 <template>
-	<div :class="{popup:true, active:visible}">
+	<div :class="{popup:true, active:visible}" @click="close">
 		<div class="popup-body" @click.prevent.stop>
 			<div class="head">
 				<h3>Modifier Utilisateur</h3>
-				<button class="close" @click="close">x</button>
+				<!-- <button class="close" @click="close">x</button> -->
 			</div>
 			<form method="post">
 				<div class="field">
