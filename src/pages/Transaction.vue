@@ -5,6 +5,7 @@
     </div><br>
     <div>
         <label v-if="$store.state.user.groups.includes('admin')">
+        	<button @click="add_mod=true">Taux</button>
         	<button @click="add_mode=true">Ajouter</button>
         </label>
     	<!-- <h2 style="text-align:center; text-transform:uppercase;">Toutes les transactions</h2><br><br> -->
@@ -20,10 +21,10 @@
               <th>nom & Prenom</th>
               <th>telephone</th>
               <th>Adresse</th>
-              <th>montant en Euro</th>
-              <th>montant en Fbu</th>
-              <th>taux</th>
-              <!-- <th v-if="$store.state.user.groups.includes('admin')">Status</th> -->
+              <th v-if="$store.state.user.groups.includes('admin')" >montant ($)</th>
+              <th>montant (Fbu)</th>
+              <th v-if="$store.state.user.groups.includes('admin')" >taux</th>
+              <th v-if="$store.state.user.groups.includes('admin')">Frais</th>
               <th>date</th>
               <th>valider</th>
             </tr>
@@ -35,9 +36,10 @@
               <td>{{ item.nom }} {{ item.prenom }}</td>
               <td>{{ item.telephone }}</td>
               <td>{{ item.adresse }}</td>
-              <td>{{money(item.montant_euro)}} Euro</td>
-              <td>{{money(item.montant_fbu)}} Fbu</td>
-              <td>{{(item.frais)}} %</td>
+              <td v-if="$store.state.user.groups.includes('admin')">{{money(item.montant_euro)}} $</td>
+              <td>{{money((item.montant_euro*item.taux)-(item.montant_euro*item.taux)*item.frais/100)}} Fbu</td>
+              <td v-if="$store.state.user.groups.includes('admin')">{{(item.taux)}} Fbu</td>
+              <td v-if="$store.state.user.groups.includes('admin')">{{(item.frais)}} %</td>
               <!-- <td v-if="$store.state.user.groups.includes('admin')">{{ item.validated }}</td> -->
               <td>{{datetime(item.date)}}</td>
               <td v-if='item.validated==false'>
@@ -56,7 +58,7 @@
 		<tfoot>
 			<tr class="panier-item">
 				<th colspan="4">Total</th>
-				<th>{{money(total())}} euros</th>
+				<th v-if="$store.state.user.groups.includes('admin')">{{money(total())}} $</th>
 				<th>{{money(totale())}} Fbu</th>
 				<th colspan="3"></th>
 
@@ -67,6 +69,7 @@
   	<EditDialog :visible="edit_mode" :produit="active_item" @close="exitEdition"/>
   	<AchatDialog :visible="achat_mode" :produit="active_item" @close="exitEdition"/>
   	<ProduitDialog :visible="add_mode" @close="exitEdition"/>
+  	<TauxDialog :visible="add_mod" @close="exitEdition"/>
   </div>
 </template>
 <script>
@@ -75,16 +78,17 @@ import SearchBar from "../components/searchbar.vue";
 import Item from "../components/achat_item.vue";
 import EditDialog from "../components/dialog_edit_transaction.vue";
 import ProduitDialog from "../components/dialog_transaction.vue";
+import TauxDialog from "../components/dialog_taux.vue";
 import AchatDialog from "../components/dialog_achat.vue";
 
 export default{
-	components:{SearchBar, Item, EditDialog, AchatDialog, ProduitDialog},
+	components:{SearchBar, Item, EditDialog, AchatDialog, ProduitDialog, TauxDialog},
 	data(){
 		return {
 			csvData : {},
 			items:this.$store.state.transactions,
 			active_item:{},
-			edit_mode:false, achat_mode:false, add_mode:false
+			edit_mode:false, achat_mode:false, add_mode:false, add_mod:false
 		}
 	},
 	watch:{
@@ -189,7 +193,7 @@ export default{
 			let total = 0;
 			for(let item of this.items){
 				if(item.validated==true){
-					total += (item.montant_fbu);
+					total += ((item.montant_euro*item.taux)-(item.montant_euro*item.taux)*item.frais/100);
 				}
 			}
 			return total;
@@ -199,6 +203,7 @@ export default{
 			this.edit_mode = false;
 			this.achat_mode = false;
 			this.add_mode = false;
+			this.add_mod = false;
 		},
 		startEdit(item){
 			this.active_item = item;
