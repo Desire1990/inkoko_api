@@ -53,7 +53,7 @@
 		<tfoot>
 			<tr class="panier-item">
 				<th colspan="5">Total</th>
-				<th>{{(total())}} poulles |<br> {{(totale())}} oeufs</th>
+				<th>{{money(total())}} poulles</th>
 				<th colspan="2"></th>
 			</tr>
 		</tfoot>
