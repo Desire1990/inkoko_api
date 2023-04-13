@@ -157,30 +157,6 @@ export default {
 				}
     		})
 		},
-		performEdition(){
-			let data = {
-				"quantite": this.qttTotal,
-				"details": this.details,
-				"prix_total": this.total,
-				"salle": this.salle.id
-			};
-			let url = this.$store.state.url
-			axios.put(url+`/achat/${this.achat.id}/`, data, this.headers)
-			.then((response) => {
-				this.salle.quantite-=this.achat.quantite;
-				this.achat.quantite = response.data.quantite;
-				this.salle.quantite += response.data.quantite;
-				this.achat.prix_total = response.data.prix_total;
-				this.achat.prix_unitaire = response.data.prix_unitaire;
-				this.$emit("close");
-			}).catch((error) => {
-				if (!!error.response) {
-					this.logs = error.response.data.status
-				} else {
-					this.logs = "une erreur est survenue";
-				}
-    		})
-		}
 	}
 };
 </script>

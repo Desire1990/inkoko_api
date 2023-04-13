@@ -16,7 +16,7 @@
 				</div>
 				<div class="field">
 					<label for="id_nom">Adresse:</label>
-					<input type="text" v-model="transaction.adresse" id="id_nom" placeholder="l'adresse'">
+					<input type="text" v-model="transaction.adresse" id="id_nom" placeholder="adresse">
 				</div>
 				<div class="field">
 					<label for="id_entrant">Telephone:</label>
@@ -29,10 +29,15 @@
 						v-model="transaction.montant_euro">
 				</div>
 				<div class="field">
-					<label for="id_prix">Montant:</label>
+					<label for="id_prix">Frais:</label>
 					<input type="number" name="prix" placeholder="frais en %" id="id_prix"
 						v-model="transaction.frais">
 				</div>
+				<div class="field" hidden>
+          <label for="id_nom">Taux</label>
+          <input type="number" list="noms" v-model="tau.taux"  placeholder="taux de change"
+            id="id_nom" @change="setTaux">
+        </div>
 				<div class="logs">{{logs}}</div>
 				<div class="buttons">
 					<button @click.prevent="createTransaction" ref="submit">
@@ -40,6 +45,9 @@
 					</button>
 				</div>				
     		</form>
+    		<datalist id="noms">
+	        <option v-for="c in taux" :value="c.taux"/>
+	      </datalist>
 		</div>
 	</div>
 </template>
@@ -52,7 +60,7 @@ export default {
 	},
 	data(){
 		return {
-			logs:"", transaction:{},
+			logs:"", transaction:{},tau:{},
 			new_price:"", csv_array:[],
 			csvData :{ size:0, fileData:[]}
 		}
@@ -68,7 +76,17 @@ export default {
 			this.$refs.submit.innerText = "upload";
 		}
 	},
+	mounted(){
+      axios.get(this.$store.state.url+'/taux/', this.headers)
+      .then((response) => {
+        this.$store.state.taux = response.data.results;
+      }).catch((error) => {
+      });
+  },
 	computed:{
+		taux(){
+      return this.$store.state.taux
+    },
 		headers(){
 			return {
 				headers: {
@@ -78,39 +96,36 @@ export default {
 		}
 	},
 	methods: {
+		setTaux(){
+      for(let tau of this.taux){
+        if (tau.date= this.tau.date) {
+          this.tau.taux = tau.taux;
+          return;
+        }
+      }
+    },
+    setNom(){
+      for(let tau of this.taux){
+        if (tau.taux == this.tau.taux) {
+          this.tau.date = tau.date;
+          return;
+        }
+      }
+    },
 		close(){
 			this.$emit("close");
 		},
 		createTransaction(){
-			if(this.csv_array.length>0){
-				this.uploadCSV();
-				return;
-			}
-			if(!this.transaction.nom){
-				this.logs = "le nom est obligatoire"
-				return;
-			}
-			if(!this.transaction.prenom){
-				this.logs = "le prenom est obligatoire"
-				return;
-			}
-			if(!this.transaction.adresse){
-				this.logs = "l'adresse est obligatoire"
-				return;
-			}
-			if(!this.transaction.telephone){
-				this.logs = "le telephone est obligatoire"
-				return;
-			}
-			if(!this.transaction.montant_euro){
-				this.transaction.montant_euro = 0;
-				this.logs = ""
-			}
-			if(!this.transaction.frais){
-				this.transaction.frais = 0;
-				this.logs = ""
-			}
-			axios.post(this.$store.state.url+`/transaction/`, this.transaction, this.headers)
+			let data = {
+				"nom": this.transaction.nom,
+				"prenom": this.transaction.prenom,
+				"telephone": this.transaction.telephone,
+				"adresse": this.transaction.adresse,
+				"montant_euro": this.transaction.montant_euro,
+				"frais": this.transaction.frais,
+				"tau": this.tau
+			};
+			axios.post(this.$store.state.url+`/transaction/`, data, this.headers)
 			.then((response) => {
 				this.transaction = {};
 				this.$store.state.transactions.push(response.data);
