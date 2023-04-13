@@ -131,7 +131,7 @@ export default{
 		performFilter(value){
 			let data = this.$store.state.oeufs.filter( x => {
 				return x.id == value |
-					x.nom.toLowerCase().includes(value.toLowerCase())
+					x.salle.nom.toLowerCase().includes(value.toLowerCase())
 			});
 			this.items = data;
 		},
