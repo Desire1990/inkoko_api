@@ -12,7 +12,7 @@
       <table class="table items">
         <thead>
           <tr class="panier-item" style="text-transform:capitalize;">
-            <th>id</th>
+            <th>#</th>
             <th>Utilisateur</th>
             <th>Salle</th>
             <th>date</th>
@@ -23,8 +23,8 @@
           </tr>
         </thead>
         <tbody id="pertes">
-          <tr v-for="perte in items" v-if="!perte.validated">
-            <td>{{ perte.id }}</td>
+          <tr v-for="perte, count in items" v-if="!perte.validated">
+            <td>{{ count +1 }}</td>
             <td>{{ perte.user.username }}</td>
             <td>{{ perte.salle }}</td>
             <td>{{ datetime(perte.date) }}</td>
@@ -41,7 +41,6 @@
           <tr class="panier-item">
             <th colspan="5">total</th>
             <th>{{money(total)}} Fbu</th>
-            <th></th>
 <!--             <th>
               <button @click="perte_shown=true">ajouter</button>
             </th> -->
