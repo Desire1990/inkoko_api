@@ -41,7 +41,10 @@
 					<fa icon="hand-holding-usd"/> Produits
 				</router-link>
 				<router-link :to="{name:'salle'}">
-					<fa icon="hand-holding-usd"/> Salle
+					<fa icon="hand-holding-usd"/> Chair
+				</router-link>
+				<router-link :to="{name:'pondeuse'}">
+					<fa icon="hand-holding-usd"/> Pondeuse
 				</router-link>
 				<router-link :to="{name:'oeuf'}">
 					<fa icon="hand-holding-usd"/> Oeufs
@@ -93,8 +96,8 @@
 					<fa icon="chart-bar"/> Pertes
 				</router-link>
 			</div>
-		</router-link>
-	<!-- 	<router-link to="/pertes" event=""
+		</router-link><!-- 
+		<router-link to="/pertes" event=""
 			@mouseenter.native="e => showSubmenu(e)"
 			@mouseleave.native="e => hideSubmenu(e)">
 			<div class="icon">
@@ -121,6 +124,18 @@
 				<fa icon="users"/>
 			</div>
 			UTILISATEURS
+		</router-link>
+		<router-link to="/paiements">
+			<div class="icon">
+				<fa icon="hand-holding-usd"/>
+			</div>
+			PAIEMENT
+		</router-link>
+		<router-link to="/depenses">
+			<div class="icon">
+				<fa icon="hand-holding-usd"/>
+			</div>
+			DEPENSE
 		</router-link>
 		<router-link to="/transactions">
 			<div class="icon">

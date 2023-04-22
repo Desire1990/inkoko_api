@@ -6,8 +6,8 @@
       <div class="scrollable-tab" v-else>
         <table class="table commandes">
           <thead>
-            <tr class="panier-item">
-              <th>#</th>
+            <tr class="panier-item" style="text-transform:capitalize;">
+              <!-- <th>#</th> -->
               <th>produit</th>
               <th>quantite</th>
               <th>prix Unitaire</th>
@@ -16,7 +16,7 @@
           </thead>
           <tbody id="commandes">
               <tr v-for="vente, count in ventes">
-                <td style="color:#aaa;">{{count+1}}</td>
+                <!-- <td style="color:#aaa;">{{count+1}}</td> -->
                 <td>{{vente.produit}}</td>
                 <td>x {{vente.quantite}}{{vente.produit.unite}}</td>
                 <td>{{money(vente.prix_achat)}} Fbu</td>
@@ -25,7 +25,7 @@
           </tbody>
           <tfoot>
             <tr class="panier-item">
-              <th colspan="4">total</th>
+              <th colspan="3">total</th>
               <th>{{money(commande.a_payer)}} Fbu</th>
             </tr>
           </tfoot>
