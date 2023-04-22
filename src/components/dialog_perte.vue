@@ -14,6 +14,10 @@
           <input type="number" v-model="quantite">
         </div>
         <div class="field">
+          <label for="id_quantite">Poids</label>
+          <input type="number" v-model="poids">
+        </div>
+        <div class="field">
           <label for="id_quantite">Prix</label>
           <input type="number" v-model="prix_unitaire">
         </div>
@@ -41,7 +45,7 @@ export default {
   }, 
   data(){
     return {
-      logs:"", nom_salle:"", quantite:0, commentaire:"", prix_unitaire:0
+      logs:"", nom_salle:"", quantite:0, commentaire:"", prix_unitaire:0, poids:0
     }
   },
   computed:{
@@ -64,7 +68,8 @@ export default {
         "salle":salle.id, 
         "quantite":this.quantite,
         "commentaire":this.commentaire,
-        "prix_unitaire":this.prix_unitaire
+        "prix_unitaire":this.prix_unitaire,
+        "poids":this.poids
       }
       if(data.quantite<=0){
         this.logs = "cette quantité est invalide"
