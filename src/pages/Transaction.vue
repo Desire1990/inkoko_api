@@ -16,31 +16,32 @@
         <table class="table paiements">
           <thead style="text-transform:capitalize;">
             <tr class="panier-item">
-              <th>#</th>
+              <!-- <th>#</th> -->
               <!-- <th>Agent</th> -->
               <th>nom & Prenom</th>
               <th>telephone</th>
-              <th>Adresse</th>
-              <th v-if="$store.state.user.groups.includes('admin')" >montant ($)</th>
+              <!-- <th>Adresse</th> -->
+              <th v-if="$store.state.user.groups.includes('admin')" >montant (€)</th>
               <th>montant (Fbu)</th>
+              <th v-if="$store.state.user.groups.includes('admin')">gain</th>
               <th v-if="$store.state.user.groups.includes('admin')" >taux</th>
               <th v-if="$store.state.user.groups.includes('admin')">Frais</th>
               <th>date</th>
-              <th>valider</th>
+              <th>options</th>
             </tr>
           </thead>
           <tbody id="paiements">
 						<tr v-for="item, count in items">
-              <th>{{ count+1 }}</th>
+              <!-- <th>{{ count+1 }}</th> -->
               <!-- <td>{{ item.user.username }}</td> -->
               <td>{{ item.nom }} {{ item.prenom }}</td>
               <td>{{ item.telephone }}</td>
-              <td>{{ item.adresse }}</td>
-              <td v-if="$store.state.user.groups.includes('admin')">{{money(item.montant_euro)}} $</td>
-              <td>{{money((item.montant_euro*item.taux)-(item.montant_euro*item.taux)*item.frais/100)}} Fbu</td>
+              <!-- <td>{{ item.adresse }}</td> -->
+              <td v-if="$store.state.user.groups.includes('admin')">{{money(item.montant_euro)}} €</td>
+              <td>{{money(item.montant_euro*item.taux)}} Fbu</td>
+              <td v-if="$store.state.user.groups.includes('admin')">{{money((item.montant_euro)*item.frais/100) }} €</td>
               <td v-if="$store.state.user.groups.includes('admin')">{{(item.taux)}} Fbu</td>
               <td v-if="$store.state.user.groups.includes('admin')">{{(item.frais)}} %</td>
-              <!-- <td v-if="$store.state.user.groups.includes('admin')">{{ item.validated }}</td> -->
               <td>{{datetime(item.date)}}</td>
               <td v-if='item.validated==false'>
                 <div class="btns">
@@ -57,10 +58,11 @@
         </tbody>
 		<tfoot>
 			<tr class="panier-item">
-				<th colspan="4">Total</th>
-				<th v-if="$store.state.user.groups.includes('admin')">{{money(total())}} $</th>
+				<th colspan="2">Total</th>
+				<th v-if="$store.state.user.groups.includes('admin')">{{money(total())}} €</th>
 				<th>{{money(totale())}} Fbu</th>
-				<th colspan="3"></th>
+				<th v-if="$store.state.user.groups.includes('admin')">{{money(gain())}} €</th>
+				<th colspan="4"></th>
 
 			</tr>
 		</tfoot>
@@ -194,6 +196,15 @@ export default{
 			for(let item of this.items){
 				if(item.validated==true){
 					total += ((item.montant_euro*item.taux)-(item.montant_euro*item.taux)*item.frais/100);
+				}
+			}
+			return total;
+		},
+		gain(){
+			let total = 0;
+			for(let item of this.items){
+				if(item.validated==true){
+					total += ((item.montant_euro)*item.frais/100);
 				}
 			}
 			return total;

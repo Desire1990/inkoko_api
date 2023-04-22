@@ -18,7 +18,7 @@
         <table class="table paiements">
          <thead>
             <tr class="panier-item">
-              <th>#</th>
+              <!-- <th>#</th> -->
               <th>nom</th>
               <th>quantite</th>
               <th>date</th>
@@ -31,7 +31,7 @@
           </thead>
           <tbody id="paiements">
             <tr v-for="(item, count) in items" :class="level(item.quantite)">
-              <th>{{ count+1}}</th>
+              <!-- <th>{{ count+1}}</th> -->
               <td>{{ item.nom }}</td>
               <td>{{ item.quantite }} {{ item.unite }}</td>
               <td>{{ datetime(item.date) }}</td>
@@ -39,15 +39,15 @@
               <td>{{money(item.prix_unitaire * item.quantite)}} Fbu</td>
               <td>
                 <div class="btns">
-                  <button @click.prevent="startEdit(item)">Edit</button>
-                  <button @click.prevent="startAchat(item)">Acheter</button>
+                  <button v-if='$store.state.user.groups.includes("admin")' @click.prevent="startEdit(item)">Edit</button>
+                  <button @click.prevent="startAchat(item)" style="background-color:teal;">Acheter</button>
                 </div>
               </td>
             </tr>
         </tbody>
 		<tfoot>
 			<tr class="panier-item">
-				<th colspan="5">total</th>
+				<th colspan="4">total</th>
 				<th>{{money(total())}} Fbu</th>
 				<th colspan="2"></th>
 			</tr>

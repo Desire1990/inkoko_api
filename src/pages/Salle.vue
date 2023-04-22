@@ -18,11 +18,11 @@
         <table class="table paiements">
          <thead>
             <tr class="panier-item" style="text-transform: capitalize;">
-              <th>#</th>
+              <!-- <th>#</th> -->
               <th>Salle</th>
               <th>Type de poulle</th>
               <th>responsable</th>
-              <th>Telephone</th>
+              <!-- <th>Telephone</th> -->
               <th>quantite</th>
               <!-- <th>oeufs pondus</th> -->
               <th>date</th>
@@ -32,18 +32,18 @@
             </tr>
           </thead>
           <tbody id="paiements">
-            <tr v-for="(item, count) in items">
-              <th>{{ count+1 }}</th>
+            <tr v-for="(item, count) in items" v-if='item.type_poulle=="poulet en chair"'>
+              <!-- <th>{{ count+1 }}</th> -->
               <td>{{ item.nom }}</td>
               <td>{{ item.type_poulle }} </td>
               <td>{{ item.responsable.nom }} {{ item.responsable.prenom }}</td>
-              <td>{{ item.responsable.telephone }} </td>
+              <!-- <td>{{ item.responsable.telephone }} </td> -->
               <td>{{ item.quantite }} poulles</td>
               <!-- <td>{{ item.total }} oeufs</td> -->
               <td>{{ datetime(item.date) }}</td>
               <td>
                 <div class="btns">
-                  <button @click.prevent="startEdit(item)">Edit</button>
+                  <button @click.prevent="startEdit(item)" v-if='$store.state.user.groups.includes("admin")'>Edit</button>
                   <button v-if='item.type_poulle=="poulet pondeuse"' @click.prevent="startAchat(item)" style="background-color:yellow;color: #000;" >Oeuf</button>
                   <button v-if='item.type_poulle=="poulet en chair"' @click.prevent="startVente(item)" style="background-color:teal;" >Vendre</button>
                 </div>
@@ -52,8 +52,8 @@
         </tbody>
 		<tfoot>
 			<tr class="panier-item">
-				<th colspan="5">Total</th>
-				<th>{{money(total())}} poulles</th>
+				<th colspan="3">Total</th>
+				<th >{{money(total())}} poulles</th>
 				<th colspan="2"></th>
 			</tr>
 		</tfoot>
@@ -113,7 +113,9 @@ export default{
 		total(){
 			let total = 0;
 			for(let item of this.items){
-				total += ( item.quantite);
+				if(item.type_poulle=="poulet en chair"){
+					total += ( item.quantite);					
+				}
 			}
 			return total;
 		},

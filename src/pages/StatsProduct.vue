@@ -8,8 +8,8 @@
       <div class="scrollable-tab">
         <table class="table ventes">
           <thead>
-            <tr class="panier-item">
-              <th>id</th>
+            <tr class="panier-item" style="text-transform:capitalize;">
+              <!-- <th>id</th> -->
               <th>produit</th>
               <th>quantité consommée</th>
               <th>prix d'achat total</th>
@@ -17,15 +17,15 @@
           </thead>
           <tbody id="ventes">
               <tr v-for="entries, count in Object.entries(grouped_ventes)">
-                <td>{{ count+1 }}</td>
+                <!-- <td>{{ count+1 }}</td> -->
                 <td>{{ entries[0] }}</td>
                 <td>{{ entries[1].quantite }}</td>
-                <td>{{ money(entries[1].prix_achat||null) }}</td>
+                <td>{{ money(entries[1].prix_achat||null) }} Fbu</td>
               </tr>
           </tbody>
           <tfoot>
             <tr class="panier-item">
-              <th colspan="3">total</th>
+              <th colspan="2">total</th>
               <th>{{money(totals.achat)}} Fbu</th>
             </tr>
           </tfoot>

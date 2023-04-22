@@ -8,8 +8,8 @@
       <div class="scrollable-tab">
         <table class="table pertes">
           <thead>
-            <tr class="panier-item">
-              <th>id</th>
+            <tr class="panier-item" style="text-transform: capitalize;">
+              <!-- <th>id</th> -->
               <th>salle</th>
               <th>du</th>
               <th>au</th>
@@ -19,7 +19,7 @@
           </thead>
           <tbody id="pertes">
               <tr v-for="perte, count in pertes">
-                <th>{{ count+1 }}</th>
+                <!-- <th>{{ count+1 }}</th> -->
                 <td>{{ perte.salle }}</td>
                 <td>{{ datetime(since) }}</td>
                 <td>{{ datetime(to) }}</td>
@@ -29,7 +29,7 @@
           </tbody>
           <tfoot>
             <tr class="panier-item">
-              <th colspan="5">total</th>
+              <th colspan="4">total</th>
               <th>{{money(total)}} Fbu</th>
             </tr>
           </tfoot>

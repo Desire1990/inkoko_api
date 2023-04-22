@@ -8,8 +8,8 @@
       <div class="scrollable-tab">
         <table class="table stats">
           <thead>
-            <tr class="panier-item">
-              <th>id</th>
+            <tr class="panier-item" style="text-transform:capitalize;">
+              <!-- <th>id</th> -->
               <th>client</th>
               <th>télephone</th><!-- 
               <th>nombre de fois</th>
@@ -18,7 +18,7 @@
           </thead>
           <tbody id="stats">
               <tr v-for="stat in stats">
-                <th>{{ stat.id }}</th>
+                <!-- <th>{{ stat.id }}</th> -->
                 <td>{{ stat.nom }}</td>
                 <td>{{ stat.tel }}</td><!-- 
                 <td>{{ stat.commande }}</td>
