@@ -9,7 +9,7 @@
         <table class="table commandes">
           <thead>
             <tr class="panier-item">
-              <th>#</th>
+              <!-- <th>#</th> -->
               <th>Date</th>
               <th>Salle</th>
               <th>Client</th>
@@ -21,19 +21,19 @@
           </thead>
           <tbody id="commandes">
             <tr v-for="commande, count in items">
-              <td>{{count+1}}</td>
+              <!-- <td>{{count+1}}</td> -->
               <td>{{datetime(commande.date)}}</td>
               <td>{{(commande.salle)}}</td>              
               <td>{{(commande.client)}}</td>              
-              <td>{{(commande.prix_unitaire)}} Fbu</td>              
+              <td>{{money(commande.prix_unitaire)}} Fbu</td>              
               <td>{{(commande.poids)}} kg</td>              
               <td>{{(commande.quantite)}}</td>              
-              <td>{{money(commande.prix_unitaire*commande.quantite)}} Fbu</td>              
+              <td>{{money(commande.prix_unitaire*commande.poids)}} Fbu</td>              
             </tr>
           </tbody>
           <tfoot>
             <tr class="panier-item">
-              <th colspan="6">Total</th>
+              <th colspan="5">Total</th>
               <th>{{(totale())}} poulets</th>
               <th>{{money(total())}} Fbu</th>
             </tr>

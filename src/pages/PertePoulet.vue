@@ -12,34 +12,38 @@
       <table class="table items">
         <thead>
           <tr class="panier-item" style="text-transform:capitalize;">
-            <th>#</th>
+            <!-- <th>#</th> -->
             <th>Utilisateur</th>
             <th>Salle</th>
             <th>date</th>
             <th>quantité perdu</th>
+            <th>poids</th>
             <th>prix vente</th>
             <th>motif</th>
             <th v-if ="userIs('admin')">Action</th>
           </tr>
         </thead>
         <tbody id="pertes">
-          <tr v-for="perte, count in items" v-if="!perte.validated">
-            <td>{{ count +1 }}</td>
+          <tr v-for="perte, count in items">
+            <!-- <td>{{ count +1 }}</td> -->
             <td>{{ perte.user.username }}</td>
             <td>{{ perte.salle }}</td>
             <td>{{ datetime(perte.date) }}</td>
             <td>{{ perte.quantite }} poulles</td>
-            <td>{{ money(perte.prix_unitaire*perte.quantite) }}</td>
+            <td>{{ perte.poids }} kg</td>
+            <td>{{ money(perte.prix_unitaire*perte.poids) }}</td>
             <td>{{ perte.commentaire }}</td>
             <td v-if="userIs('admin')">
-              <button @click="acceptPerte(perte)">Accepter</button>
-              <button @click="deletePerte(perte)">Refuser</button>
+              <div v-if='!perte.validated'>
+                <button  @click="acceptPerte(perte)">Accepter</button>
+                <button @click="deletePerte(perte)">Refuser</button>
+              </div>
             </td>
           </tr>
         </tbody>
         <tfoot>
           <tr class="panier-item">
-            <th colspan="5">total</th>
+            <th colspan="5">Total</th>
             <th>{{money(total)}} Fbu</th>
 <!--             <th>
               <button @click="perte_shown=true">ajouter</button>
@@ -76,8 +80,8 @@ export default {
       let tot = 0;
       // if (this.items.length == 0 ) return tot;
       for(let perte of this.items) {
-        if(!perte.validated)
-          tot += perte.prix_unitaire*perte.quantite;
+        // if(!perte.validated)
+          tot += perte.prix_unitaire*perte.poids;
       }
       return tot;
     },
