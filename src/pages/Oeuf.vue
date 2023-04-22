@@ -16,7 +16,7 @@
         <table class="table paiements">
          <thead style="text-transform:capitalize;">
             <tr class="panier-item">
-              <th>#</th>
+              <!-- <th>#</th> -->
               <th>Salle</th>
               <!-- <th>prix</th> -->
               <th>quantite</th>
@@ -25,7 +25,7 @@
           </thead>
           <tbody id="paiements">
             <tr v-for="(item, count) in items">
-              <th>{{ count+1}}</th>
+              <!-- <th>{{ count+1}}</th> -->
               <td>{{ item.salle.nom }}</td>
               <!-- <td>{{ item.prix.prix }} Fbu</td> -->
               <td>{{ item.quantite }} oeufs</td>
@@ -34,7 +34,7 @@
         </tbody>
 		<tfoot>
 			<tr class="panier-item">
-				<th colspan="2">total</th>
+				<th colspan="1">total</th>
 				<th>{{(total())}} oeufs</th>
 				<th></th>
 			</tr>

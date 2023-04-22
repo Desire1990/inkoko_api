@@ -12,7 +12,7 @@
       <table class="table items">
         <thead>
           <tr class="panier-item" style="text-transform:capitalize;">
-            <th>id</th>
+            <!-- <th>id</th> -->
             <th>Utilisateur</th>
             <th>Salle</th>
             <th>date</th>
@@ -24,7 +24,7 @@
         </thead>
         <tbody id="pertes">
           <tr v-for="perte in items" v-if="!perte.validated">
-            <td>{{ perte.id }}</td>
+            <!-- <td>{{ perte.id }}</td> -->
             <td>{{ perte.user.username }}</td>
             <td>{{ perte.salle }}</td>
             <td>{{ datetime(perte.date) }}</td>

@@ -12,7 +12,7 @@
         <table class="table achats">
           <thead>
             <tr class="panier-item" style="text-transform:capitalize;">
-              <th>#</th>
+              <!-- <th>#</th> -->
               <th>nom</th>
               <th>quantité</th>
               <th>prix unitaire</th>
@@ -24,9 +24,9 @@
           </thead>
           <tbody id="achats">
               <tr v-for="achat, count in achats">
-                <th>{{ count+1 }}</th>
-                <td>{{ achat.produit }}</td>
-                <td>{{ achat.quantite }}</td>
+                <!-- <th>{{ count+1 }}</th> -->
+                <td>{{ achat.produit.nom }}</td>
+                <td>{{ achat.quantite }} {{ achat.produit.unite }}</td>
                 <td>{{ money(achat.prix_unitaire) }}</td>
                 <td>{{ money(achat.prix_total) }} Fbu</td>
                 <td>{{ achat.user }}</td>
@@ -40,7 +40,7 @@
           </tbody>
           <tfoot>
             <tr class="panier-item">
-              <th colspan="4">total</th>
+              <th colspan="3">total</th>
               <th>{{money(total)}} Fbu</th>
               <th colspan="3"></th>
 
