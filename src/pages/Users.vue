@@ -8,22 +8,21 @@
     <div class="scrollable-tab">
       <table class="table users">
         <thead>
-          <tr class="panier-item">
-            <th>#</th>
+          <tr class="panier-item" style="text-transform:capitalize;">
+            <!-- <th>#</th> -->
             <th>username</th>
             <th>prenom</th>
             <th>nom</th>
             <th>actif</th>
             <th>groupes</th> 
-            <th>options</th>
-            <th>
+            <th>options
                 <button style="float: right; margin-right:50px" @click="user_shown=true">Ajouter</button>
             </th>
           </tr>
         </thead>
         <tbody id="users">
           <tr v-for="user, counter in users">
-            <td>{{counter+1}}</td>
+            <!-- <td>{{counter+1}}</td> -->
             <td>{{user.username}}</td>
             <td>{{user.first_name}}</td>
             <td>{{user.last_name}}</td>
@@ -43,7 +42,7 @@
                   <button v-else @click="activateUser(user)">activer</button>
                 </span>
               </div>
-            </td><td></td>
+            </td>
           </tr>
         </tbody>
       </table>

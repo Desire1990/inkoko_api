@@ -8,8 +8,8 @@
       <div class="scrollable-tab">
         <table class="table commandes">
           <thead>
-            <tr class="panier-item">
-              <th>#</th>
+            <tr class="panier-item" style="text-transform: capitalize;">
+              <!-- <th>#</th> -->
               <th>Date</th>
               <th>Responsable</th>
               <th>options</th>
@@ -17,7 +17,7 @@
           </thead>
           <tbody id="commandes">
             <tr v-for="commande, count in rations.results">
-              <th>{{count+1}}</th>
+              <!-- <th>{{count+1}}</th> -->
               <td>{{datetime(commande.date)}}</td>
               <td>{{(commande.responsable)}}</td>              
               <td>
