@@ -71,7 +71,7 @@ export default {
     total(){
       let total = 0;
       for(let item of this.items){
-        total += (item.prix_unitaire * item.quantite);
+        total += (item.prix_unitaire * item.poids);
       }
       return total;
     },

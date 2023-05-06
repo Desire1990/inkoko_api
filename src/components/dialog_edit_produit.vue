@@ -14,6 +14,10 @@
 					<input type="text" v-model="new_produit.unite" id="id_unite">
 				</div>
 				<div class="field">
+					<label for="id_unite">Quantite:</label>
+					<input type="text" v-model="new_produit.quantite" id="id_unite">
+				</div>
+				<div class="field">
 					<label for="id_prix">Nouveau prix:</label>
 					<input type="number" name="prix" placeholder="prix" required="" id="id_quantite" v-model="new_produit.prix_unitaire">
 				</div>

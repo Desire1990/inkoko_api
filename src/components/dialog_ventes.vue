@@ -17,15 +17,17 @@
           <tbody id="commandes">
               <tr v-for="vente, count in ventes">
                 <!-- <td style="color:#aaa;">{{count+1}}</td> -->
-                <td>{{vente.produit}}</td>
-                <td>x {{vente.quantite}}{{vente.produit.unite}}</td>
+                <td>{{vente.produit.nom}}</td>
+                <td>x {{vente.quantite}} {{vente.produit.unite}}</td>
                 <td>{{money(vente.prix_achat)}} Fbu</td>
                 <td>{{money(vente.prix_achat*vente.quantite)}} Fbu</td>
               </tr>
           </tbody>
           <tfoot>
             <tr class="panier-item">
-              <th colspan="3">total</th>
+              <th colspan="1">Total</th>
+              <th>{{money(quantite())}} kg</th>
+              <th colspan="1"></th>
               <th>{{money(commande.a_payer)}} Fbu</th>
             </tr>
           </tfoot>
@@ -66,6 +68,13 @@ export default {
     }
   },
   methods: {
+    quantite(){
+      let total = 0;
+      for(let item of this.ventes){
+        total += item.quantite
+      }
+      return total
+    },
     close(){
       this.$emit("close")
     }
