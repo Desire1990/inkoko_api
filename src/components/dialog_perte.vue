@@ -53,9 +53,32 @@ export default {
       return this.$store.state.salles
     }
   },
+  mounted(){
+    this.fetchData();
+  },
   methods: {
     close(){
       this.$emit("close")
+    },
+    fetchData(){
+      let headers = {
+          headers: {
+            "Authorization": "Bearer " + this.$store.state.user.access
+          }
+        }
+      if(this.$store.state.users.length==0){
+        axios.get(this.$store.state.url+'/salle/', headers)
+        .then((response) => {
+          this.$store.state.salles = response.data.results;
+          this.items = response.data.results;
+          console.log(response.data.results)
+        }).catch((error) => {
+          if(error.response){
+          }else{
+            console.error(error)
+          }
+        });
+      }
     },
     postPerte(){
       let headers = {
