@@ -10,7 +10,7 @@ export default new Vuex.Store({
     // url:"/api",
     // url:"http://127.0.0.1:8000/api",
     // url:'https://inkoko.amidev.bi/api',
-    url: 'https://nkokoz.com/api'
+    url: 'https://nkokoz.com/api',
     produits:[],
     salles:[],
     stats:[],
