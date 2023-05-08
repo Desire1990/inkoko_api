@@ -43,7 +43,9 @@
         </tbody>
         <tfoot>
           <tr class="panier-item">
-            <th colspan="5">Total</th>
+            <th colspan="3">Total</th>
+            <th>{{money(totale)}} poules</th>
+            <th></th>
             <th>{{money(total)}} Fbu</th>
 <!--             <th>
               <button @click="perte_shown=true">ajouter</button>
@@ -82,6 +84,15 @@ export default {
       for(let perte of this.items) {
         // if(!perte.validated)
           tot += perte.prix_unitaire*perte.poids;
+      }
+      return tot;
+    },
+    totale(){
+      let tot = 0;
+      // if (this.items.length == 0 ) return tot;
+      for(let perte of this.items) {
+        // if(!perte.validated)
+          tot += perte.quantite;
       }
       return tot;
     },

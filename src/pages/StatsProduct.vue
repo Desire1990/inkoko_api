@@ -74,6 +74,7 @@ export default {
         } else {
           new_vente = {
             "id": vente.produit_id,
+            "nom": vente.produit.nom,
             "quantite": vente.quantite,
             "prix_achat": vente.prix_achat*vente.quantite,
             "prix_vente": vente.prix_vente*vente.quantite,
